@@ -19,6 +19,8 @@ import Foundation
     // MARK: - User intents
 
     func handleButtonTap() {
-        soundPlayer.playSound(named: "Click.mp3")
+        Task {
+            await soundPlayer.playSound(named: "Click.mp3")
+        }
     }
 }

@@ -5,34 +5,13 @@
 //  Created by Stephen Liddle on 9/22/23.
 //
 
-import SwiftUI
+import Foundation
 
 enum CalculatorButtonType {
     case utility
     case compute
     case number
     case doubleWide
-}
-
-extension CalculatorButtonType {
-    var backgroundColor: Color {
-        switch self {
-            case .utility:
-                Color("UtilityBackground")
-            case .compute:
-                Color("ComputeBackground")
-            case .number, .doubleWide:
-                Color("NumberBackground")
-        }
-    }
-
-    var foregroundColor: Color {
-        self == .utility ? .black : .white
-    }
-
-    var spanWidth: Int {
-        self == .doubleWide ? 2 : 1
-    }
 }
 
 enum OperationSymbol: String, Hashable {
@@ -59,27 +38,27 @@ enum OperationSymbol: String, Hashable {
     case placeholder = ""
 }
 
-//typealias ButtonSpec = (symbol: OperationSymbol, type: CalculatorButtonType)
-//
-//let buttonSpecs: [ButtonSpec] = [
-//    (.clear, .utility),
-//    (.changeSign, .utility),
-//    (.percent, .utility),
-//    (.divide, .compute),
-//    (.seven, .number),
-//    (.eight, .number),
-//    (.nine, .number),
-//    (.multiply, .compute),
-//    (.four, .number),
-//    (.five, .number),
-//    (.six, .number),
-//    (.subtract, .compute),
-//    (.one, .number),
-//    (.two, .number),
-//    (.three, .number),
-//    (.add, .compute),
-//    (.zero, .doubleWide),
-//    (.placeholder, .number),
-//    (.decimal, .number),
-//    (.calculate, .compute),
-//]
+typealias ButtonSpec = (symbol: OperationSymbol, type: CalculatorButtonType)
+
+let buttonSpecs: [ButtonSpec] = [
+    (.clear, .utility),
+    (.changeSign, .utility),
+    (.percent, .utility),
+    (.divide, .compute),
+    (.seven, .number),
+    (.eight, .number),
+    (.nine, .number),
+    (.multiply, .compute),
+    (.four, .number),
+    (.five, .number),
+    (.six, .number),
+    (.subtract, .compute),
+    (.one, .number),
+    (.two, .number),
+    (.three, .number),
+    (.add, .compute),
+    (.zero, .doubleWide),
+    (.placeholder, .number),
+    (.decimal, .number),
+    (.calculate, .compute),
+]

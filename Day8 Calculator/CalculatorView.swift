@@ -7,21 +7,12 @@
 
 import SwiftUI
 
-typealias ButtonSpec = (label: String, type: CalculatorButtonType)
-
 struct CalculatorView: View {
     private struct Constants {
         static let buttonSpacing = 16.0
         static let displayFontSize = 90.0
     }
 
-    let buttonSpecs: [ButtonSpec] = [
-        ("AC", .utility),   ("±", .utility), ("%", .utility), ("÷", .compute),
-        ("7", .number),     ("8", .number),  ("9", .number),  ("×", .compute),
-        ("4", .number),     ("5", .number),  ("6", .number),  ("–", .compute),
-        ("1", .number),     ("2", .number),  ("3", .number),  ("+", .compute),
-        ("0", .doubleWide), ("", .number),   (".", .number),  ("=", .compute),
-    ]
     let gridItems = Array<GridItem>(repeating: .init(.flexible()), count: 4)
 
     @Bindable var calculatorViewModel: CalculatorViewModel
@@ -43,8 +34,8 @@ struct CalculatorView: View {
                         .foregroundStyle(.white)
                         .padding(.trailing, Constants.buttonSpacing * 2)
                     LazyVGrid(columns: gridItems, alignment: .leading, spacing: Constants.buttonSpacing) {
-                        ForEach(buttonSpecs, id: \.label) { buttonSpec in
-                            if buttonSpec.label.isEmpty {
+                        ForEach(buttonSpecs, id: \.symbol) { buttonSpec in
+                            if buttonSpec.symbol.rawValue.isEmpty {
                                 Text("")
                             } else {
                                 CalculatorButton(buttonSpec: buttonSpec, size: geometry.size, calculatorViewModel: calculatorViewModel)

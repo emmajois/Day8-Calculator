@@ -30,7 +30,7 @@ struct CalculatorButton: View {
                         width: buttonSize(for: size, spanWidth: buttonSpec.type.spanWidth),
                         height: buttonSize(for: size, spanWidth: 1)
                     )
-                Text(buttonSpec.label)
+                Text(buttonSpec.symbol.rawValue)
                     .foregroundStyle(buttonSpec.type.foregroundColor)
                     .font(displayFont)
             }
@@ -39,7 +39,7 @@ struct CalculatorButton: View {
 
     func buttonSize(for size: CGSize, spanWidth: Int) -> CGFloat {
         if spanWidth > 1 {
-            return (minimumSize / 2 + Constants.buttonSpacing) * Constants.scaleFactor
+            return (minimumSize / 2 + Constants.buttonSpacing * 1.5) * Constants.scaleFactor
         }
 
         return minimumSize / 4 * Constants.scaleFactor
@@ -61,17 +61,17 @@ struct CalculatorButton: View {
 #Preview {
     HStack {
         CalculatorButton(
-            buttonSpec: ButtonSpec(label: "AC", type: .utility),
+            buttonSpec: ButtonSpec(symbol: .allClear, type: .utility),
             size: CGSize(width: 400, height: 400),
             calculatorViewModel: CalculatorViewModel()
         )
         CalculatorButton(
-            buttonSpec: ButtonSpec(label: "+", type: .compute),
+            buttonSpec: ButtonSpec(symbol: .add, type: .compute),
             size: CGSize(width: 400, height: 400),
             calculatorViewModel: CalculatorViewModel()
         )
         CalculatorButton(
-            buttonSpec: ButtonSpec(label: "0", type: .doubleWide),
+            buttonSpec: ButtonSpec(symbol: .zero, type: .doubleWide),
             size: CGSize(width: 400, height: 400),
             calculatorViewModel: CalculatorViewModel()
         )
