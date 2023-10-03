@@ -63,12 +63,27 @@ struct CalculatorBrain {
 
         switch operation {
             case .binary(let function):
-                break
+                performPendingOperation()
+            
+            if let accumulator{
+                pendingOperation = PendingBinaryOperation(
+                    calculate: function,
+                    leftOperand: accumulator,
+                    symbol: symbol
+                )
+                clearAccumulator()
+            }
             case .unary(let function):
-                break
+            if let accumulator {
+                self.accumulator = function(accumulator)
+            }
             case .calculate:
                 performPendingOperation()
         }
+    }
+    
+    mutating func setAccumulatore(_ value: Double?){
+        accumulator = value
     }
 
     // MARK: - Private helpers
