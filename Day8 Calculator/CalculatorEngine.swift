@@ -33,6 +33,17 @@ import Foundation
     }
     // MARK: - Model access
     
+    var activeSymbol: OperationSymbol? {
+        calculator.pendingSymbol
+    }
+    
+    var clearSymbol: String{
+        if let text = textBeingEdited, text != Constants.defaultDisplayText {
+            OperationSymbol.clear.rawValue
+        } else {
+            OperationSymbol.allClear.rawValue
+        }
+    }
     var displayText: String {
         if let text = textBeingEdited {
             text

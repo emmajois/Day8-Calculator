@@ -25,19 +25,25 @@ struct CalculatorButton: View {
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius)
-                    .fill(buttonSpec.type.backgroundColor)
+                    .fill(backgroundColor)
                     .frame(
                         width: buttonSize(for: size, spanWidth: buttonSpec.type.spanWidth),
                         height: buttonSize(for: size, spanWidth: 1)
                     )
-                Text(buttonSpec.symbol.rawValue)
-                    .foregroundStyle(buttonSpec.type.foregroundColor)
+                Text(symbolString)
+                    .foregroundStyle(foregroundColor)
                     .font(displayFont)
             }
         }
     }
+    
+    private var backgroundColor: Color {
+        buttonSpec.symbol == calculator.activeSymbol
+            ? buttonSpec.type.foregroundColor
+            : buttonSpec.type.backgroundColor
+    }
 
-    func buttonSize(for size: CGSize, spanWidth: Int) -> CGFloat {
+    private func buttonSize(for size: CGSize, spanWidth: Int) -> CGFloat {
         if spanWidth > 1 {
             return (minimumSize / 2 + Constants.buttonSpacing * 1.5) * Constants.scaleFactor
         }
@@ -45,16 +51,30 @@ struct CalculatorButton: View {
         return minimumSize / 4 * Constants.scaleFactor
     }
 
-    var cornerRadius: CGFloat {
+    private var cornerRadius: CGFloat {
         minimumSize / Constants.radiusFactor * Constants.scaleFactor
     }
 
-    var displayFont: Font {
+    private var displayFont: Font {
         .system(size: minimumSize * Constants.fontScaleFactor, weight: .light)
     }
+    
+    private var foregroundColor: Color {
+        buttonSpec.symbol == calculator.activeSymbol
+            ? buttonSpec.type.backgroundColor
+            : buttonSpec.type.foregroundColor
+    }
 
-    var minimumSize: CGFloat {
+    private var minimumSize: CGFloat {
         min(size.height, size.width)
+    }
+    
+    private var symbolString: String {
+        if buttonSpec.symbol == .clear{
+            calculator.clearSymbol
+        } else {
+            buttonSpec.symbol.rawValue
+        }
     }
 }
 
