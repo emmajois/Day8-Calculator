@@ -14,15 +14,17 @@ import Foundation
         static let decimal = OperationSymbol.decimal.rawValue
         static let defaultDisplayText = OperationSymbol.zero.rawValue
         static let errorDisplay = "Error"
+        static let largeThreshold = 1_000_000_000.0
         static let maximumFractionDigits = 8
     }
 
     // MARK: - Properties
 
-    var calculator = CalculatorBrain()
     var playSound = true
     
+    private var calculator = CalculatorBrain()
     private var decimalFormatter = NumberFormatter()
+    private var scientificFormatter = NumberFormatter()
     private var soundPlayer = SoundPlayer()
     private var textBeingEdited: String? = Constants.defaultDisplayText
     
@@ -30,6 +32,9 @@ import Foundation
     init () {
         decimalFormatter.numberStyle = .decimal
         decimalFormatter.maximumFractionDigits = Constants.maximumFractionDigits
+        
+        scientificFormatter.numberStyle = .scientific
+        scientificFormatter.maximumFractionDigits = Constants.maximumFractionDigits
     }
     // MARK: - Model access
     
@@ -38,7 +43,7 @@ import Foundation
     }
     
     var clearSymbol: String{
-        if let text = textBeingEdited, text != Constants.defaultDisplayText {
+        if isClear {
             OperationSymbol.clear.rawValue
         } else {
             OperationSymbol.allClear.rawValue
@@ -81,10 +86,25 @@ import Foundation
     //MARK: - Private Helpers
     
     private func formatted(number: Double) -> String {
-        decimalFormatter.string(from: NSNumber(value: number)) ?? Constants.errorDisplay
+        formatter(for: number).string(from: NSNumber(value: number)) ?? Constants.errorDisplay
+    }
+    
+    private func formatter(for value: Double) -> NumberFormatter {
+        value > Constants.largeThreshold ? scientificFormatter : decimalFormatter
     }
     private func handleClearTap() {
-        
+        if isClear {
+            calculator.clearAccumulator()
+            
+            if calculator.pendingLeftOperand != nil {
+                textBeingEdited = nil
+            } else {
+                textBeingEdited = Constants.defaultDisplayText
+            }
+        } else {
+            calculator.clearAll()
+            textBeingEdited = Constants.defaultDisplayText
+        }
     }
     
     private func handleNumericTap(digit: String){
@@ -116,6 +136,14 @@ import Foundation
         if calculator.accumulator != nil {
             calculator.performOperation(symbol: symbol)
             textBeingEdited = nil
+        }
+    }
+    
+    private var isClear: Bool {
+        if let text = textBeingEdited, text != Constants.defaultDisplayText {
+            true
+        } else {
+            false
         }
     }
 }

@@ -21,6 +21,7 @@
 		3F149B842AC5C724000717DD /* Click.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F149B832AC5C6FD000717DD /* Click.mp3 */; };
 		3F149B872AC5C820000717DD /* CalculatorBrain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F149B862AC5C820000717DD /* CalculatorBrain.swift */; };
 		3F149B892AC5C889000717DD /* CalculatorButtonType+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F149B882AC5C889000717DD /* CalculatorButtonType+Color.swift */; };
+		FCFA45F12ACBC4920090B05A /* SystemFortForSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCFA45F02ACBC4920090B05A /* SystemFortForSize.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		3F149B832AC5C6FD000717DD /* Click.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Click.mp3; sourceTree = "<group>"; };
 		3F149B862AC5C820000717DD /* CalculatorBrain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculatorBrain.swift; sourceTree = "<group>"; };
 		3F149B882AC5C889000717DD /* CalculatorButtonType+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalculatorButtonType+Color.swift"; sourceTree = "<group>"; };
+		FCFA45F02ACBC4920090B05A /* SystemFortForSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemFortForSize.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +151,7 @@
 			children = (
 				3F149B762AC52B16000717DD /* SoundPlayer.swift */,
 				3F149B882AC5C889000717DD /* CalculatorButtonType+Color.swift */,
+				FCFA45F02ACBC4920090B05A /* SystemFortForSize.swift */,
 			);
 			name = Utility;
 			sourceTree = "<group>";
@@ -325,6 +328,7 @@
 				3F149B7B2AC52B16000717DD /* SoundPlayer.swift in Sources */,
 				3F149B772AC52B16000717DD /* CalculatorView.swift in Sources */,
 				3F149B492AC52AED000717DD /* Day8_CalculatorApp.swift in Sources */,
+				FCFA45F12ACBC4920090B05A /* SystemFortForSize.swift in Sources */,
 				3F149B7A2AC52B16000717DD /* CalculatorEngine.swift in Sources */,
 				3F149B782AC52B16000717DD /* CalculatorButton.swift in Sources */,
 			);
