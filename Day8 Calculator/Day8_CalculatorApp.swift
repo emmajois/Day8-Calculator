@@ -11,7 +11,7 @@ import SwiftUI
 struct Day8_CalculatorApp: App {
     var body: some Scene {
         WindowGroup {
-            CalculatorView(calculatorViewModel: CalculatorViewModel())
+            CalculatorView(calculator: CalculatorEngine())
         }
     }
 }

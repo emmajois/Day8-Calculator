@@ -15,7 +15,7 @@ struct CalculatorView: View {
 
     let gridItems = Array<GridItem>(repeating: .init(.flexible()), count: 4)
 
-    @Bindable var calculatorViewModel: CalculatorViewModel
+    @Bindable var calculator: CalculatorEngine
 
     var body: some View {
         GeometryReader { geometry in
@@ -24,12 +24,12 @@ struct CalculatorView: View {
                     .fill(.black)
                     .edgesIgnoringSafeArea(.all)
                 VStack(alignment: .trailing, spacing: Constants.buttonSpacing) {
-                    Toggle(isOn: $calculatorViewModel.playSound, label: {
+                    Toggle(isOn: $calculator.playSound, label: {
                         Text("Annoy the user")
                             .foregroundStyle(.white)
                     })
                     Spacer()
-                    Text("1,000")
+                    Text(calculator.displayText)
                         .font(.system(size: Constants.displayFontSize, weight: .light))
                         .foregroundStyle(.white)
                         .padding(.trailing, Constants.buttonSpacing * 2)
@@ -38,7 +38,7 @@ struct CalculatorView: View {
                             if buttonSpec.symbol.rawValue.isEmpty {
                                 Text("")
                             } else {
-                                CalculatorButton(buttonSpec: buttonSpec, size: geometry.size, calculatorViewModel: calculatorViewModel)
+                                CalculatorButton(buttonSpec: buttonSpec, size: geometry.size, calculator: calculator)
                             }
                         }
                     }
@@ -50,5 +50,5 @@ struct CalculatorView: View {
 }
 
 #Preview {
-    CalculatorView(calculatorViewModel: CalculatorViewModel())
+    CalculatorView(calculator: CalculatorEngine())
 }

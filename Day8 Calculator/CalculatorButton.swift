@@ -17,11 +17,11 @@ struct CalculatorButton: View {
 
     let buttonSpec: ButtonSpec
     let size: CGSize
-    let calculatorViewModel: CalculatorViewModel
+    let calculator: CalculatorEngine
 
     var body: some View {
         Button {
-            calculatorViewModel.handleButtonTap()
+            calculator.handleButtonTap(for: buttonSpec)
         } label: {
             ZStack {
                 RoundedRectangle(cornerRadius: cornerRadius)
@@ -63,17 +63,17 @@ struct CalculatorButton: View {
         CalculatorButton(
             buttonSpec: ButtonSpec(symbol: .allClear, type: .utility),
             size: CGSize(width: 400, height: 400),
-            calculatorViewModel: CalculatorViewModel()
+            calculator: CalculatorEngine()
         )
         CalculatorButton(
             buttonSpec: ButtonSpec(symbol: .add, type: .compute),
             size: CGSize(width: 400, height: 400),
-            calculatorViewModel: CalculatorViewModel()
+            calculator: CalculatorEngine()
         )
         CalculatorButton(
             buttonSpec: ButtonSpec(symbol: .zero, type: .doubleWide),
             size: CGSize(width: 400, height: 400),
-            calculatorViewModel: CalculatorViewModel()
+            calculator: CalculatorEngine()
         )
     }
 }
