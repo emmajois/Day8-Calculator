@@ -11,23 +11,35 @@ import Foundation
     //MARK: - Constants
     
     private struct Constants {
-        static let defaultDisplayText = "0"
+        static let decimal = OperationSymbol.decimal.rawValue
+        static let defaultDisplayText = OperationSymbol.zero.rawValue
         static let errorDisplay = "Error"
+        static let maximumFractionDigits = 8
     }
 
     // MARK: - Properties
 
     var calculator = CalculatorBrain()
     var playSound = true
+    
+    private var decimalFormatter = NumberFormatter()
     private var soundPlayer = SoundPlayer()
-    private var textBeingEdited: String?
-
+    private var textBeingEdited: String? = Constants.defaultDisplayText
+    
+    // MARK: - Initialization
+    init () {
+        decimalFormatter.numberStyle = .decimal
+        decimalFormatter.maximumFractionDigits = Constants.maximumFractionDigits
+    }
     // MARK: - Model access
     
-    var displayText: String{
-        if let text = textBeingEdited{
+    var displayText: String {
+        if let text = textBeingEdited {
             text
-            // NEEDSWORK : more to do here
+        } else if let value = calculator.accumulator {
+            formatted(number:value)
+        } else if let value = calculator.pendingLeftOperand {
+            formatted(number:value)
         } else {
             Constants.errorDisplay
         }
@@ -57,17 +69,42 @@ import Foundation
     
     //MARK: - Private Helpers
     
+    private func formatted(number: Double) -> String {
+        decimalFormatter.string(from: NSNumber(value: number)) ?? Constants.errorDisplay
+    }
     private func handleClearTap() {
         
     }
     
     private func handleNumericTap(digit: String){
         if let text = textBeingEdited {
-            textBeingEdited = text + digit
+            if digit == Constants.decimal && text.contains(digit){
+                //Ignore extra tap on decimal button
+                return
+            }
+            
+            if digit != Constants.decimal && text == Constants.defaultDisplayText {
+                textBeingEdited = digit
+            } else {
+                textBeingEdited = text + digit
+            }
+        } else {
+                textBeingEdited = digit
         }
+        
+        if let updatedText = textBeingEdited {
+            if updatedText.hasPrefix(Constants.decimal) {
+                textBeingEdited = Constants.defaultDisplayText + updatedText
+            }
+            calculator.setAccumulator(Double(updatedText))
+        }
+        
     }
     
     private func handleOperationTap(symbol: OperationSymbol){
-        //needswork
+        if calculator.accumulator != nil {
+            calculator.performOperation(symbol: symbol)
+            textBeingEdited = nil
+        }
     }
 }
